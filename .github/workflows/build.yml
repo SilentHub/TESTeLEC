@@ -1,27 +1,40 @@
-name: Build/Release
+name: Build and Release
 
 on:
   push:
     tags:
-      - 'v*' # Срабатывает, когда ты пушишь тег, например v1.0.0
+      - 'v*'
+
+permissions:
+  contents: write
 
 jobs:
   release:
-    runs-on: macos-latest # Самое важное: собираем на реальном маке
+    runs-on: macos-latest
 
     steps:
       - name: Check out git repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Install Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: 24.11.1 # Или твою версию
+          node-version: 20
 
       - name: Install Dependencies
         run: npm install
 
-      - name: Build & Release
+      # Собираем файл (он появится в папке dist/)
+      - name: Build Mac DMG
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: npm run build:mac-arm
+
+      # ЯВНО загружаем файл на страницу релизов
+      - name: Upload Release Files
+        uses: softprops/action-gh-release@v1
+        if: startsWith(github.ref, 'refs/tags/')
+        with:
+          files: dist/*.dmg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
