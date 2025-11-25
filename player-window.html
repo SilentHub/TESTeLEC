@@ -1,0 +1,193 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Плеер Сценария</title>
+        <style>
+            :root {
+                --bg-color: #2a2a2e;
+                --header-bg: #3c3c42;
+                --text-color: #e1e1e6;
+                --text-secondary: #8e8e93;
+                --block-bg: #3a3a3e;
+                --block-selected-bg: #f3eade;
+                --block-selected-text: #000000;
+                --line-completed-bg: #f6cdae;
+                --line-completed-text: #000000;
+                --border-color: #48484a;
+                --checkbox-bg: #555;
+                --checkbox-checked-bg: #ffffff;
+            }
+            * {
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                height: 100%;
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    sans-serif;
+                background-color: var(--bg-color);
+                color: var(--text-color);
+                overflow: hidden;
+                font-size: 14px;
+            }
+            .player-wrapper {
+                display: flex;
+                flex-direction: column;
+                height: 100%;
+            }
+            .player-header {
+                position: relative;
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 8px 15px;
+                flex-shrink: 0;
+                -webkit-app-region: drag;
+            }
+            .nav-arrow {
+                font-size: 24px;
+                color: var(--text-secondary);
+                cursor: pointer;
+                -webkit-app-region: no-drag;
+                user-select: none;
+                padding: 0 10px;
+                z-index: 2;
+            }
+            .nav-arrow.disabled {
+                opacity: 0.3;
+                cursor: not-allowed;
+            }
+            .step-title {
+                position: absolute;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 16px;
+                font-weight: 600;
+                margin: 0;
+                -webkit-app-region: no-drag;
+            }
+            .step-counter {
+                margin-right: 100px;
+                font-size: 12px;
+                color: var(--text-secondary);
+                -webkit-app-region: no-drag;
+                z-index: 2;
+            }
+            .step-description-area {
+                padding: 1px 1px 1px 15px;
+                background-color: #333337;
+                border-top: 1px solid var(--border-color);
+                border-bottom: 1px solid var(--border-color);
+            }
+            .step-description {
+                margin: 0;
+                line-height: 1.4;
+                color: var(--text-secondary);
+            }
+            .actions-container {
+                flex-grow: 1;
+                padding: 10px;
+                overflow-y: auto;
+            }
+            .player-action-block {
+                background-color: var(--block-bg);
+                border-radius: 8px;
+                margin-bottom: 10px;
+                cursor: pointer;
+                border: 1px solid transparent;
+                transition: background-color 0.2s;
+                overflow: hidden;
+            }
+            .player-action-block.selected {
+                background-color: var(--block-selected-bg);
+                color: var(--block-selected-text);
+            }
+            .player-action-block.selected .action-icon,
+            .player-action-block.selected .action-text,
+            .player-action-block.selected .action-line {
+                color: var(--block-selected-text);
+            }
+            .player-action-block.selected .action-checkbox {
+                border-color: #999;
+                visibility: visible;
+            }
+            .action-line {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding: 8px 12px;
+                font-size: 15px;
+                line-height: 1.4;
+                transition: background-color 0.2s;
+            }
+            .action-line:not(:last-child) {
+                border-bottom: 1px solid #48484a;
+            }
+            .player-action-block.selected .action-line:not(:last-child) {
+                border-bottom-color: #dcd7cd;
+            }
+            .action-line.completed {
+                background-color: var(--line-completed-bg);
+                color: var(--line-completed-text);
+            }
+            .action-line.completed .action-icon,
+            .action-line.completed .action-text {
+                color: var(--line-completed-text);
+            }
+            .action-line-content {
+                display: flex;
+                align-items: center;
+                flex-grow: 1;
+            }
+            .action-text {
+                white-space: pre-wrap;
+                font-weight: 600;
+            }
+            .action-icon {
+                margin-right: 12px;
+                font-size: 12px; /* ---> ИСПРАВЛЕННЫЙ РАЗМЕР <--- */
+                color: var(--text-secondary);
+                transition: color 0.2s;
+            }
+            .action-checkbox {
+                flex-shrink: 0;
+                width: 18px;
+                height: 18px;
+                border: 2px solid var(--checkbox-bg);
+                border-radius: 9px;
+                cursor: pointer;
+                margin-left: 15px;
+                transition: border-color 0.2s;
+                visibility: hidden;
+            }
+            .action-line.completed .action-checkbox {
+                border-color: transparent;
+                background-color: var(--line-completed-text);
+            }
+        </style>
+    </head>
+    <body>
+        <div class="player-wrapper">
+            <header class="player-header">
+                <div id="player-prev-btn" class="nav-arrow">&lt;</div>
+                <h2 id="player-step-name" class="step-title"></h2>
+                <div style="display: flex; align-items: center">
+                    <span id="player-step-counter" class="step-counter"></span>
+                    <div id="player-next-btn" class="nav-arrow">&gt;</div>
+                </div>
+            </header>
+
+            <section
+                id="player-step-description-area"
+                class="step-description-area"
+            ></section>
+            <main id="player-actions-list" class="actions-container"></main>
+        </div>
+
+        <script src="./renderer-player.js"></script>
+    </body>
+</html>

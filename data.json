@@ -1,0 +1,73 @@
+[
+  {
+    "id": "admin",
+    "name": "Админ",
+    "type": "profile",
+    "children": [
+      {
+        "id": "admin_f1",
+        "name": "Секретные материалы",
+        "type": "folder",
+        "children": [],
+        "phrases": [
+          {
+            "id": "ap1",
+            "text": "Пароль от всего - 123",
+            "isFavorite": true,
+            "order": 1
+          }
+        ]
+      }
+    ]
+  },
+  {
+    "id": "user123",
+    "name": "Мой Профиль",
+    "type": "profile",
+    "children": [
+      {
+        "id": "user_f1",
+        "name": "Приветствия",
+        "type": "folder",
+        "children": [],
+        "phrases": [
+          {
+            "id": "up1",
+            "text": "Всем привет!",
+            "isFavorite": false,
+            "order": 1
+          },
+          { "id": "up2", "text": "Доброе утро", "isFavorite": true, "order": 2 }
+        ]
+      },
+      {
+        "id": "user_f2",
+        "name": "Заметки",
+        "type": "folder",
+        "children": [
+          {
+            "id": "user_f2_sf1",
+            "name": "Важное",
+            "type": "folder",
+            "children": [],
+            "phrases": [
+              {
+                "id": "up3",
+                "text": "Купить молоко",
+                "isFavorite": false,
+                "order": 1
+              }
+            ]
+          }
+        ],
+        "phrases": []
+      }
+    ]
+  },
+  {
+    "id": "work_prof",
+    "name": "Работа",
+    "type": "profile",
+    "children": []
+  }
+]

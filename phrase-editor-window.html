@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            http-equiv="Content-Security-Policy"
+            content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data:;"
+        />
+        <title>Редактор фразы</title>
+        <link rel="stylesheet" href="style.css" />
+        <style>
+            html,
+            body {
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                overflow: hidden;
+                background-color: #2d2d2d;
+            }
+
+            /* Этот класс отвечает только за общую раскладку и отступы ОКНА */
+            .editor-layout {
+                display: flex;
+                height: 100%;
+                width: 100%;
+                box-sizing: border-box;
+                padding: 20px;
+            }
+
+            /* А этот класс `.modal-content` теперь используется только для стилей из style.css.
+               Мы добавляем ему гибкость, чтобы он занял все место внутри .editor-layout.
+            */
+            .modal-content {
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden; /* Важно, чтобы скролл был только у нужного блока */
+            }
+
+            /* Блок с формой будет растягиваться и скроллиться */
+            .form-scroll-area {
+                flex-grow: 1;
+                overflow-y: auto;
+                padding: 0 25px 20px 25px; /* Внутренние отступы для полей формы */
+            }
+
+            /* Блок с кнопками всегда прижат к низу */
+            .modal-actions {
+                flex-shrink: 0;
+                padding: 15px 25px;
+                border-top: 1px solid #444;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="editor-layout">
+            <div class="modal-content phrase-editor-modal-content">
+                <div class="form-scroll-area">
+                    <h3
+                        id="phrase-editor-title"
+                        style="margin-top: 0; margin-bottom: 0px"
+                    >
+                        Редактировать фразу
+                    </h3>
+                    <div class="form-group">
+                        <label for="phrase-editor-name"
+                            >Название фразы (в списке):</label
+                        >
+                        <input
+                            type="text"
+                            id="phrase-editor-name"
+                            placeholder="Сюда пишем название фразы"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="phrase-editor-phraseText">Фраза:</label>
+                        <textarea
+                            id="phrase-editor-phraseText"
+                            rows="4"
+                            placeholder="Текст фразы"
+                        ></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="phrase-editor-transcription"
+                            >Транскрипция:</label
+                        >
+                        <textarea
+                            type="text"
+                            id="phrase-editor-transcription"
+                            placeholder="Транскрипция (необязательно)"
+                        >
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="phrase-editor-actionText"
+                            >Что делаем (контекст/действие):</label
+                        >
+                        <textarea
+                            type="text"
+                            id="phrase-editor-actionText"
+                            placeholder="Описание (необязательно)"
+                        >
+                        </textarea>
+                    </div>
+                </div>
+
+                <div class="modal-actions">
+                    <button
+                        id="cancel-btn"
+                        class="modal-action-button"
+                        style="background-color: #6c757d"
+                    >
+                        Отмена
+                    </button>
+                    <button
+                        id="save-btn"
+                        class="modal-action-button"
+                        style="background-color: #28a745"
+                    >
+                        Сохранить
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <script src="./renderer-editor-window.js" type="module"></script>
+    </body>
+</html>

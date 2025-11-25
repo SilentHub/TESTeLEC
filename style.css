@@ -1,0 +1,1170 @@
+/* Общие сбросы и базовые стили */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+body {
+    font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
+        sans-serif;
+    background-color: #2d2d2d;
+    color: #e0e0e0;
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    line-height: 1.6;
+}
+.app-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+}
+
+/* Левый сайдбар */
+.sidebar {
+    width: 200px;
+    background-color: #1e1e1e;
+    padding: 15px 0;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-right: 1px solid #444;
+    transition: width 0.3s ease-in-out;
+}
+.sidebar.collapsed {
+    width: 68px;
+}
+.sidebar.collapsed .profile-item .profile-name,
+.sidebar.collapsed .manage-profiles-button {
+    display: none;
+}
+.sidebar.collapsed .profile-item {
+    justify-content: center;
+}
+.sidebar.collapsed .sidebar-toggle .icon-arrow {
+    transform: rotate(180deg);
+}
+.profile-list {
+    list-style: none;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+.profile-item {
+    padding: 12px 20px;
+    cursor: pointer;
+    font-size: 0.95em;
+    border-bottom: 1px solid #2a2a2a;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+.profile-item:hover {
+    background-color: #383838;
+}
+.profile-item.active {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+.profile-emoji {
+    font-size: 1.2em;
+}
+.profile-name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis; /* Добавляет '...' в конце длинного текста */
+    min-width: 0;
+    flex-grow: 1; /* Позволяет элементу сжиматься в flex-контейнере */
+}
+.manage-profiles-button {
+    padding: 12px 20px;
+    background-color: #333;
+    color: #e0e0e0;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    font-size: 0.9em;
+    border-top: 1px solid #444;
+    white-space: nowrap;
+}
+.manage-profiles-button:hover {
+    background-color: #444;
+}
+.sidebar-toggle {
+    margin-top: auto;
+    background-color: #2a2a2a;
+    border: none;
+    border-top: 1px solid #444;
+    color: #ccc;
+    padding: 10px 0;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1.5em;
+    transition: background-color 0.2s;
+}
+.sidebar-toggle:hover {
+    background-color: #383838;
+}
+.sidebar-toggle .icon-arrow {
+    display: inline-block;
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Основной контент */
+.main-content {
+    flex-grow: 1;
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background-color: #2d2d2d;
+}
+.main-header {
+    margin-bottom: 0px;
+}
+.breadcrumbs {
+    margin-bottom: 0;
+    flex-shrink: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.breadcrumb-item.current {
+    color: #e0e0e0;
+    font-weight: bold;
+}
+.breadcrumb-separator {
+    margin: 0 8px;
+}
+.search-area {
+    flex-shrink: 1;
+    /* min-width: 200px; <-- УДАЛЯЕМ ЭТУ СТРОКУ */
+    display: flex;
+    align-items: center;
+    background-color: #252525;
+    border-radius: 5px;
+    padding: 2px 8px; /* УМЕНЬШИЛИ ВЕРТИКАЛЬНЫЕ ОТСТУПЫ */
+}
+
+.search-icon {
+    font-size: 1.2em; /* УМЕНЬШИЛИ РАЗМЕР ИКОНКИ */
+    margin-right: 8px;
+    color: #777;
+}
+#search-input {
+    /* flex-grow: 1; <-- УБИРАЕМ ЭТО СВОЙСТВО */
+    width: 4.2em; /* Задаем небольшую начальную ширину (примерно как слово Search) */
+    transition: width 0.3s ease-in-out; /* Добавляем плавную анимацию расширения */
+
+    /* Остальные стили оставляем как есть */
+    background-color: transparent;
+    border: none;
+    color: #e0e0e0;
+    font-size: 1.2em;
+    padding: 4px 0;
+    outline: none;
+}
+#search-input::placeholder {
+    color: #555;
+    font-weight: bold;
+}
+.folder-actions-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #3a3a3a;
+}
+.action-button-main {
+    padding: 8px 15px;
+    font-size: 0.9em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.action-button-main:hover {
+    background-color: #0056b3;
+}
+.action-button-main:disabled {
+    background-color: #555;
+    cursor: not-allowed;
+}
+.phrase-list-container {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+.list-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 5px;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #3a3a3a;
+    transition: background-color 0.2s;
+}
+.list-item:hover {
+    background-color: #333333;
+}
+.phrase-order,
+.step-order {
+    margin-right: 10px;
+    color: #888;
+    min-width: 25px;
+}
+.phrase-text-content {
+    flex-grow: 1;
+    margin-right: 15px;
+    padding: 5px;
+    outline-color: #007bff;
+    cursor: text;
+}
+.phrase-text-content.highlighted-for-editing {
+    border: 2px dashed #ffd700;
+    border-radius: 3px;
+}
+.list-item.randomly-selected-phrase {
+    background-color: #004880;
+    border-left: 4px solid #007bff;
+    transition: background-color 0.3s ease-out;
+}
+.phrase-actions,
+.folder-actions {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+.action-btn {
+    background-color: #404040;
+    color: #c0c0c0;
+    border: 1px solid #505050;
+    border-radius: 4px;
+    padding: 6px 10px;
+    margin-left: 8px;
+    cursor: pointer;
+    font-size: 0.85em;
+    font-weight: bold;
+    transition: background-color 0.2s;
+}
+.action-btn:hover {
+    background-color: #505050;
+    border-color: #606060;
+}
+.action-btn.edit-phrase-btn,
+.action-btn.edit-folder-btn,
+.edit-profile-btn,
+.edit-profile-emoji-btn {
+    padding: 6px 8px;
+}
+.action-btn.delete-phrase-btn,
+.action-btn.delete-folder-btn {
+    background-color: #a03b45;
+}
+.action-btn.delete-phrase-btn:hover,
+.action-btn.delete-folder-btn:hover {
+    background-color: #c82333;
+}
+.favorite-btn {
+    background-color: transparent;
+    border: none;
+    color: #777;
+    font-size: 1.5em;
+    padding: 0 5px;
+}
+.favorite-btn.active {
+    color: #e74c3c;
+}
+.folder-item {
+    cursor: default;
+}
+.folder-item .folder-name-list,
+.folder-item .folder-icon {
+    cursor: pointer;
+}
+.folder-icon {
+    margin-right: 10px;
+    font-size: 1.2em;
+    color: #888;
+}
+.folder-name-list {
+    flex-grow: 1;
+    font-weight: 500;
+}
+.main-footer {
+    padding-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+.random-button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.random-button:hover {
+    background-color: #0056b3;
+}
+
+/* --- Стили для модальных окон (ОБЩИЕ) --- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: none;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+.modal-content {
+    background-color: #333;
+    color: #e0e0e0;
+    padding: 2px 3px;
+    border-radius: 8px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+    min-width: 380px;
+    max-width: 90%;
+    position: relative;
+    z-index: 1001;
+}
+.modal-content h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 1.3em;
+}
+.modal-content p {
+    margin-bottom: 12px;
+}
+.modal-content input[type="text"],
+.modal-content input[type="password"],
+.modal-content textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #252525;
+    border: 1px solid #555;
+    border-radius: 5px;
+    font-size: 1em;
+    color: #e0e0e0;
+}
+.modal-content input[type="text"]:focus,
+.modal-content input[type="password"]:focus,
+.modal-content textarea:focus {
+    border-color: #007bff;
+    outline: 0;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+.modal-actions {
+    margin-top: 20px;
+    text-align: right;
+}
+.modal-actions button,
+.modal-action-button {
+    padding: 9px 18px;
+    font-size: 0.95em;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+    transition: background-color 0.2s;
+}
+.modal-actions button + button,
+.modal-action-button + .modal-action-button {
+    margin-left: 10px;
+}
+#alert-modal-ok-btn,
+#password-modal-ok-btn,
+#modal-ok-btn {
+    background-color: #28a745;
+    color: white;
+}
+#alert-modal-ok-btn:hover,
+#password-modal-ok-btn:hover,
+#modal-ok-btn:hover {
+    background-color: #218838;
+}
+#password-modal-cancel-btn,
+#modal-cancel-btn,
+#close-manage-profiles-btn {
+    background-color: #6c757d;
+    color: white;
+}
+#password-modal-cancel-btn:hover,
+#modal-cancel-btn:hover,
+#close-manage-profiles-btn:hover {
+    background-color: #5a6268;
+}
+#new-profile-name-input {
+    z-index: 1001;
+}
+/* Управление профилями */
+#profiles-editor-list {
+    margin-bottom: 20px;
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #444;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+.profile-edit-item:last-child {
+    border-bottom: none;
+}
+.profile-edit-item span {
+    flex-grow: 1;
+}
+.delete-profile-btn {
+    background-color: #dc3545;
+    color: white;
+    padding: 4px 8px;
+    font-size: 0.8em;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-left: 10px;
+}
+.delete-profile-btn:hover {
+    background-color: #c82333;
+}
+.delete-profile-btn[disabled] {
+    background-color: #555;
+    cursor: not-allowed;
+}
+#add-new-profile-btn {
+    background-color: #007bff;
+    color: white;
+}
+#add-new-profile-btn:hover {
+    background-color: #0056b3;
+}
+.profile-edit-item .edit-profile-emoji-btn {
+    font-size: 1.2em;
+    padding: 4px 8px;
+}
+
+/* Редактор фраз */
+.phrase-editor-modal-content {
+    min-width: 500px;
+}
+.form-group {
+    margin-bottom: 1px;
+}
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-size: 0.9em;
+    color: #ccc;
+}
+.form-group textarea {
+    resize: vertical;
+    min-height: 60px;
+}
+#save-phrase-btn {
+    background-color: #28a745;
+    color: white;
+    width: 100%;
+}
+#save-phrase-btn:hover {
+    background-color: #218838;
+}
+#phrase-editor-clear-image-btn:hover {
+    background-color: #c82333 !important;
+}
+
+/* Выбор типа папки */
+.folder-type-selection {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-top: 20px;
+}
+.folder-type-option {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    background-color: #444;
+    border: 1px solid #555;
+    border-radius: 5px;
+    cursor: pointer;
+    transition:
+        background-color 0.2s,
+        border-color 0.2s;
+    text-align: left;
+    color: #e0e0e0;
+    font-size: 1em;
+    width: 100%;
+}
+.folder-type-option:hover {
+    background-color: #555;
+    border-color: #777;
+}
+.folder-type-option .icon {
+    font-size: 1.5em;
+    margin-right: 15px;
+    width: 30px;
+    text-align: center;
+}
+
+/* Выбор смайликов */
+.popover {
+    position: absolute;
+    background-color: #3a3a3a;
+    border: 1px solid #555;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    padding: 10px;
+    z-index: 1050;
+}
+.emoji-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+}
+.emoji-option {
+    background-color: transparent;
+    border: none;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.emoji-option:hover {
+    background-color: #555;
+}
+
+/* Общие стили для Сценариев */
+.scenario-item .scenario-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin: 0 15px;
+}
+.scenario-description {
+    font-size: 0.8em;
+    color: #888;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.scenario-item .action-btn[title="Запустить сценарий"] {
+    background-color: #28a745;
+    color: white;
+    min-width: 80px;
+}
+.scenario-item .action-btn[title="Запустить сценарий"]:hover {
+    background-color: #218838;
+}
+.scenario-editor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #3a3a3a;
+}
+.scenario-editor-title {
+    text-align: center;
+}
+.scenario-editor-title h3 {
+    margin: 0;
+}
+.scenario-editor-title p {
+    font-size: 0.9em;
+    color: #888;
+    margin: 0;
+}
+.steps-list {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+/* --- Редактор этапов --- */
+.step-editor-modal-content {
+    min-width: 550px;
+}
+.step-actions-panel {
+    margin-top: 1px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #4a4a4a;
+}
+#step-actions-list-container {
+    margin-top: 15px;
+    background-color: #2a2a2a;
+    border-radius: 4px;
+    min-height: 120px;
+
+    overflow-y: auto;
+    padding: 10px;
+}
+.step-editor-action-block {
+    position: relative;
+    border: 1px solid #4f4f4f;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    background-color: #3c3c3c;
+    padding: 10px;
+    padding-top: 15px;
+}
+.delete-block-btn {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 1px solid #222;
+    background-color: #8c3b45;
+    color: white;
+    font-size: 1.1em;
+    line-height: 26px;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: all 0.2s;
+}
+.delete-block-btn:hover {
+    opacity: 1;
+    background-color: #c82333;
+    transform: scale(1.1);
+}
+.step-editor-action-block .actions-list {
+    display: flex;
+    flex-direction: column;
+}
+.step-action-item {
+    display: flex;
+    align-items: center;
+    padding: 8px;
+}
+.step-editor-action-block .step-action-item {
+    padding-left: 5px;
+    border-radius: 4px;
+    margin-bottom: 5px;
+}
+.step-editor-action-block .step-action-item:hover {
+    background-color: #4a4a4a;
+}
+.step-action-item .icon {
+    font-size: 1.5em;
+    margin-right: 10px;
+}
+.step-action-item .action-text {
+    flex-grow: 1;
+    color: #ddd;
+    background-color: #383838;
+    padding: 8px;
+    border-radius: 3px;
+    outline-color: #007bff;
+    cursor: text;
+    white-space: pre-wrap; /* ---> ВОТ ЭТО ИСПРАВЛЕНИЕ <--- */
+
+}
+.step-action-item .delete-action-btn {
+    background-color: transparent;
+    border: none;
+    color: #888;
+    font-size: 1.5em;
+    margin-left: 10px;
+    cursor: pointer;
+    padding: 0 5px;
+    line-height: 1;
+}
+.step-action-item .delete-action-btn:hover {
+    color: #ff5555;
+}
+.block-controls {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid #555;
+    display: flex;
+    gap: 10px;
+}
+.add-action-to-block-btn {
+    flex-grow: 1;
+    background-color: #555;
+    border: 1px solid #666;
+    color: #eee;
+    cursor: pointer;
+    border-radius: 4px;
+    padding: 5px;
+    font-size: 0.8em;
+    transition: background-color 0.2s;
+}
+.add-action-to-block-btn:hover {
+    background-color: #6a6a6a;
+}
+.add-action-to-block-btn span {
+    margin-right: 5px;
+}
+
+/* --- Плеер сценариев (ФИНАЛЬНАЯ ВЕРСИЯ) --- */
+.scenario-player-content {
+    background-color: #2d2d2d;
+    width: 100%;
+    height: 100%;
+    border-radius: 0;
+    box-shadow: none;
+    position: static;
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.player-main-scroll-area {
+    flex-grow: 1;
+    min-height: 0;
+    overflow-y: auto;
+    border: 1px solid #4a4a4a;
+    border-radius: 8px;
+    background-color: #252525;
+    padding: 15px;
+}
+.player-header,
+.player-footer {
+    display: flex;
+    justify-content: center; /* Центрируем содержимое по горизонтали */
+    align-items: center;
+    flex-shrink: 0;
+}
+.player-step-description {
+    padding: 0;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: #ccc;
+    border: none;
+    background-color: transparent;
+}
+.player-actions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.player-action-block {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #4a4a4a;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: #2d2d2d;
+    transition:
+        border-color 0.2s,
+        background-color 0.2s;
+}
+.player-action-block:hover {
+    border-color: #666;
+}
+.player-action-block.highlighted {
+    background-color: #3a4351;
+    border-color: #007bff;
+}
+.player-action-block .player-action-item {
+    background-color: transparent;
+    padding: 12px 15px;
+    border-bottom: 1px solid #4a4a4a;
+    cursor: default;
+    transition: none;
+    border-left: none;
+}
+.player-action-block .player-action-item:last-child {
+    border-bottom: none;
+}
+.player-nav-btn {
+    background: none;
+    border: none;
+    color: #e0e0e0;
+    font-size: 1.5em;
+    cursor: pointer;
+    padding: 0 20px;
+}
+.player-nav-btn:hover {
+    color: #007bff;
+}
+.player-nav-btn:disabled {
+    color: #555;
+    cursor: not-allowed;
+}
+.player-title-container {
+    text-align: center;
+}
+#player-step-name {
+    margin: 0;
+    font-size: 1.4em;
+}
+#player-step-counter {
+    color: #888;
+    font-size: 1em;
+}
+.player-footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.player-stop-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: none;
+    background-color: #dc3545;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+.player-stop-btn:hover {
+    background-color: #c82333;
+}
+
+/* Поиск и прочее */
+.search-result-info {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    margin-left: 10px;
+}
+.phrase-item .search-result-info {
+    margin-left: 0;
+}
+.search-result-path {
+    font-size: 0.8em;
+    color: #888;
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+}
+mark.search-highlight {
+    background-color: #ffd700;
+    color: #333;
+    padding: 0;
+    border-radius: 2px;
+}
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+::-webkit-scrollbar-track {
+    background: #2d2d2d;
+}
+::-webkit-scrollbar-thumb {
+    background: #555;
+    border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #777;
+}
+.empty-folder-message {
+    color: #888;
+    text-align: center;
+    padding: 20px;
+    font-style: italic;
+}
+.sortable-ghost {
+    opacity: 0.4;
+    background: #4a4a4a;
+}
+/* --- Стили для всплывающих уведомлений (Toast) --- */
+
+.toast-container {
+    position: absolute;
+    top: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    pointer-events: none; /* Чтобы нельзя было кликнуть по контейнеру */
+}
+
+.toast-message {
+    background-color: #28a745; /* Зеленый цвет для успеха */
+    color: white;
+    padding: 12px 25px;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    font-size: 1.1em;
+    font-weight: 500;
+    opacity: 0;
+    transform: translateY(-20px);
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+.toast-message.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+/* --- Стили для контекстного меню --- */
+.context-menu {
+    position: fixed;
+    z-index: 10000;
+    background-color: #3c3c3c;
+    border: 1px solid #555;
+    border-radius: 6px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+    padding: 6px 0;
+    min-width: 180px;
+}
+
+.context-menu-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 15px;
+    font-size: 0.95em;
+    color: #e0e0e0;
+    cursor: pointer;
+}
+
+.context-menu-item:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.context-menu-separator {
+    height: 1px;
+    background-color: #555;
+    margin: 5px 0;
+}
+
+.context-menu-item.destructive {
+    color: #ff5c5c;
+}
+
+.context-menu-item.destructive:hover {
+    background-color: #c82333;
+    color: white;
+}
+/* --- Стили для кнопки фильтра избранного --- */
+
+.filter-favorites-btn {
+    background-color: transparent;
+    border: none;
+    color: #888;
+    font-size: 1.8em;
+    padding: 0 10px;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.filter-favorites-btn:hover {
+    color: #e74c3c;
+}
+
+.filter-favorites-btn.active {
+    color: #e74c3c;
+}
+#custom-prompt-overlay {
+    z-index: 1001;
+}
+#confirm-modal-overlay {
+    z-index: 1002; /* Выше, чем у других модалок */
+}
+
+.modal-actions button.destructive {
+    background-color: #dc3545;
+    color: white;
+}
+
+.modal-actions button.destructive:hover {
+    background-color: #c82333;
+}
+.player-buttons button {
+    margin-left: auto;
+    margin-right: auto;
+}
+/* style.css */
+
+/* Стиль для счетчика фраз в папке */
+/* style.css */
+
+/* Стиль для счетчика фраз в папке */
+.item-count {
+    // margin-left: 8px;
+    height: 18px; /* Задаем фиксированную высоту */
+    min-width: 18px; /* Минимальная ширина равна высоте для создания круга */
+    padding: 0 5px; /* Небольшие боковые отступы для чисел > 9 */
+    line-height: 18px; /* Вертикально центрируем текст */
+    text-align: center; /* Горизонтально центрируем текст */
+    font-size: 0.8em;
+    color: #aaa;
+    background-color: #3a3a3a;
+    border-radius: 10px; /* Скругление для формы */
+    font-weight: bold;
+    flex-shrink: 0;
+    box-sizing: border-box; /* Важно для правильного расчета размера */
+}
+/* style.css */
+/* --- Стили для Блокнота --- */
+#notepad-view {
+    position: fixed; /* Чтобы блокнот был поверх всего */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    z-index: 9999; /* Очень высокий z-index, чтобы перекрыть все остальное */
+}
+#notepad-textarea {
+    width: 100%;
+    height: 100%;
+    padding: 25px 30px;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    resize: none;
+    background-color: #2a2a2a;
+    color: #d0d0d0;
+    font-family: "Consolas", "Menlo", monospace;
+    font-size: 1.1em;
+    line-height: 1.6;
+}
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 4px;
+}
+
+.breadcrumbs {
+    margin-bottom: 0; /* Убираем старый отступ */
+    flex-shrink: 1; /* Позволяем хлебным крошкам сжиматься */
+}
+
+/* --- Стили для новой кнопки Random --- */
+.random-button-top {
+    background: none;
+    border: none;
+    color: #888;
+    font-size: 1.8em;
+    padding: 0 5px 0 10px;
+    cursor: pointer;
+    transition: color 0.2s;
+    line-height: 1;
+}
+
+.random-button-top:hover {
+    color: #007bff;
+}
+
+/* Старую кнопку прячем, если она где-то осталась */
+.main-footer .random-button {
+    display: none;
+}
+/* style.css */
+
+/* --- Стили для нового окна Плеера --- */
+.player-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20px;
+    flex-shrink: 0;
+}
+.player-main-scroll-area {
+    flex-grow: 1;
+    min-height: 0;
+    overflow-y: auto;
+    margin-top: 15px;
+    border-top: 1px solid #4a4a4a;
+    border-bottom: 1px solid #4a4a4a;
+    background-color: #252525;
+    padding: 15px;
+    -webkit-app-region: no-drag;
+}
+.player-step-description {
+    padding: 0;
+    margin-bottom: 20px;
+    font-size: 1.1em;
+    color: #ccc;
+    border: none;
+    background-color: transparent;
+}
+.player-actions-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+.player-action-block {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #4a4a4a;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    background-color: #2d2d2d;
+    transition:
+        border-color 0.2s,
+        background-color 0.2s;
+}
+.player-action-block:hover {
+    border-color: #666;
+}
+.player-action-block.highlighted {
+    background-color: #3a4351;
+    border-color: #007bff;
+}
+.player-action-block .player-action-item {
+    display: flex; /* Добавлено для иконки и текста */
+    align-items: center; /* Добавлено для иконки и текста */
+    background-color: transparent;
+    padding: 12px 15px;
+    border-bottom: 1px solid #4a4a4a;
+    cursor: default;
+}
+.player-action-block .player-action-item:last-child {
+    border-bottom: none;
+}
+/* style.css */
+
+.profile-edit-item .profile-name {
+    /* flex-grow: 1; <-- УДАЛЯЕМ ЭТО СВОЙСТВО */
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Стиль для всей строки */
+.profile-edit-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 10px;
+    border-bottom: 1px solid #4a4a4a;
+    gap: 10px; /* Отступ между левой частью и счетчиком */
+}
+
+/* Контейнер для иконки и имени */
+.profile-name-container {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    gap: 8px; /* Отступ между элементами внутри */
+}
+
+/* Только для текста имени */
+.profile-name-text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    .dragging {
+        opacity: 0.5;
+        background: #d4c8b0;
+    }

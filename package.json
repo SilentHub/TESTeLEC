@@ -1,0 +1,43 @@
+{
+  "name": "expbook",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "electron-builder",
+    "build:mac-arm": "electron-builder --mac --arm64",
+    "build:win": "electron-builder --win",
+    "start": "electron ."
+  },
+  "author": "San Yang",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "node-machine-id": "^1.1.12",
+    "sortablejs": "^1.15.6"
+  },
+  "devDependencies": {
+    "electron": "^36.4.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.swappy.phrases.app",
+    "productName": "Swappy Phrases",
+    "files": [
+      "**/*",
+      "!node_modules/*",
+      "!dist/*",
+      "!build/*",
+      "!.git/*"
+    ],
+    "mac": {
+      "target": [
+        "dmg"
+      ]
+    },
+    "win": {
+      "target": "portable",
+      "icon": "32.ico"
+    }
+  }
+}

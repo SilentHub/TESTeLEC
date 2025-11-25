@@ -1,0 +1,192 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>Детали Фразы</title>
+        <style>
+            html,
+            body {
+                overflow: hidden;
+                border-radius: 12px;
+                height: 100%;
+                margin: 0;
+            }
+            body {
+                position: relative;
+                font-family:
+                    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+                    Helvetica, Arial, sans-serif;
+                border: 2px solid;
+                display: flex;
+                flex-direction: column;
+                -webkit-app-region: drag;
+                box-sizing: border-box;
+                background-color: #f3eade;
+                border-color: #d4c8b0;
+                color: #000;
+            }
+            .header {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 10px 20px;
+                flex-shrink: 0;
+            }
+            .header .font-controls,
+            .header .placeholder {
+                display: flex;
+                gap: 5px;
+                width: 80px;
+            }
+            .header .main-icon {
+                font-size: 2.5em;
+                color: #a1865b;
+                flex-grow: 1;
+                text-align: center;
+            }
+            .font-controls button,
+            .money-icon {
+                -webkit-app-region: no-drag;
+                cursor: pointer;
+            }
+            .font-controls button {
+                background: #e6dace;
+                border: 1px solid #d4c8b0;
+                border-radius: 5px;
+                width: 30px;
+                height: 30px;
+                font-size: 1.2em;
+            }
+            .font-controls button:hover {
+                background: #d4c8b0;
+            }
+            .content-wrapper {
+                flex-grow: 1;
+                overflow: hidden; /* Changed from auto to hidden */
+                padding: 0 25px 25px 25px;
+                -webkit-app-region: no-drag;
+                display: flex; /* Added for flex layout */
+                flex-direction: column; /* Added for vertical layout */
+            }
+            .content-block {
+                margin-bottom: 20px;
+            }
+            /* ---> НОВЫЙ СТИЛЬ ДЛЯ РАСТЯГИВАНИЯ БЛОКА <--- */
+            .input-block-wrapper {
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+            }
+            .content-block p {
+                font-size: 1.2em;
+                line-height: 1.5;
+                margin: 0;
+                padding: 0;
+                word-wrap: break-word;
+            }
+            .content-block strong {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                font-size: 0.8em;
+                margin-bottom: 5px;
+                text-transform: uppercase;
+                font-weight: 600;
+                color: #5c5241;
+            }
+            .content-block .icon {
+                font-size: 1.8em;
+                color: #a1865b;
+            }
+            #phrase-text-display {
+                font-weight: bold;
+                text-align: center;
+            }
+            #phrase-transcription-display {
+                text-align: center;
+                font-size: 1.1em;
+                color: #5c5241;
+                margin-top: -10px;
+            }
+            .money-icon {
+                font-size: 2.2em;
+                text-align: right;
+                line-height: 1;
+            }
+            /* ---> ИЗМЕНЕННЫЕ СТИЛИ ДЛЯ ТЕКСТОВОГО ПОЛЯ <--- */
+            #user-input-area {
+                width: 100%;
+                flex-grow: 1; /* Растягивается на всю доступную высоту */
+                box-sizing: border-box;
+                border: 1px solid #d4c8b0;
+                background-color: #f9f4ec;
+                border-radius: 5px;
+                padding: 10px;
+                font-family: inherit;
+                resize: none; /* Убираем возможность ручного изменения размера */
+                font-weight: bold; /* Жирный шрифт */
+                font-size: calc(
+                    1.2em + 4px
+                ); /* Размер шрифта на 4px больше основного */
+            }
+            #user-input-area::placeholder {
+                color: #999;
+                font-weight: normal;
+            }
+            body.dark-theme {
+                background-color: #2d2d2d;
+                border-color: #555;
+                color: #e0e0e0;
+            }
+            body.dark-theme .header .main-icon,
+            body.dark-theme .content-block strong,
+            body.dark-theme #phrase-transcription-display {
+                color: #999;
+            }
+            body.dark-theme .font-controls button {
+                background: #444;
+                border-color: #666;
+                color: #e0e0e0;
+            }
+            body.dark-theme .font-controls button:hover {
+                background: #555;
+            }
+            body.dark-theme #user-input-area {
+                background-color: #3a3a3a;
+                border-color: #555;
+                color: #e0e0e0;
+            }
+            body.dark-theme #user-input-area::placeholder {
+                color: #777;
+            }
+        </style>
+    </head>
+    <body>
+        <header class="header">
+            <div class="font-controls">
+                <button id="increase-font-btn">+</button>
+                <button id="decrease-font-btn">-</button>
+            </div>
+            <div class="main-icon">&#128172;</div>
+            <div id="money-icon" class="placeholder money-icon">💰</div>
+        </header>
+
+        <div class="content-wrapper">
+            <div id="group-phraseText" class="content-block">
+                <p id="phrase-text-display"></p>
+            </div>
+            <div id="group-transcription" class="content-block">
+                <p id="phrase-transcription-display"></p>
+            </div>
+            <div id="group-actionText" class="content-block">
+                <strong><span class="icon">&#127916;</span> Что делаем</strong>
+                <p id="phrase-action-display"></p>
+            </div>
+            <div class="input-block-wrapper">
+                <textarea id="user-input-area" placeholder=""></textarea>
+            </div>
+        </div>
+
+        <script src="./preload-phrase-renderer.js"></script>
+    </body>
+</html>

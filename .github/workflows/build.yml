@@ -1,0 +1,27 @@
+name: Build/Release
+
+on:
+  push:
+    tags:
+      - 'v*' # Срабатывает, когда ты пушишь тег, например v1.0.0
+
+jobs:
+  release:
+    runs-on: macos-latest # Самое важное: собираем на реальном маке
+
+    steps:
+      - name: Check out git repository
+        uses: actions/checkout@v3
+
+      - name: Install Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 24.11.1 # Или твою версию
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build & Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npm run build:mac-arm

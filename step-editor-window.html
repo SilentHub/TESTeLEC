@@ -1,0 +1,130 @@
+<!doctype html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            http-equiv="Content-Security-Policy"
+            content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline';"
+        />
+        <title>Редактор этапа</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+    <body>
+        <div class="editor-layout">
+            <div class="modal-content step-editor-modal-content">
+                <div class="form-area">
+                    <h3
+                        id="step-editor-title"
+                        style="
+                            margin-top: 0;
+                            margin-bottom: 0;
+                            text-align: center;
+                        "
+                    >
+                        Новый этап
+                    </h3>
+                    <div class="form-group">
+                        <label for="step-editor-name">Название этапа:</label>
+                        <input
+                            type="text"
+                            id="step-editor-name"
+                            placeholder="Пишем название этапа"
+                        />
+                    </div>
+                    <div class="form-group">
+                        <label for="step-editor-description"
+                            >Что делаем и для чего:</label
+                        >
+                        <textarea
+                            id="step-editor-description"
+                            rows="2"
+                            placeholder="Пишем что делаем и для чего"
+                        ></textarea>
+                    </div>
+                    <div id="step-actions-panel" class="step-actions-panel">
+                        <button
+                            id="add-action-block-btn"
+                            class="action-button-main"
+                            style="
+                                width: 100%;
+                                font-size: 1em;
+                                background-color: #3a8d3d;
+                            "
+                        >
+                            + Добавить блок действий
+                        </button>
+                    </div>
+                </div>
+
+                <div id="step-actions-list-container"></div>
+
+                <div class="modal-actions">
+                    <button
+                        id="cancel-btn"
+                        class="modal-action-button"
+                        style="background-color: #6c757d"
+                    >
+                        Отмена
+                    </button>
+                    <button
+                        id="save-btn"
+                        class="modal-action-button"
+                        style="background-color: #28a745"
+                    >
+                        Сохранить этап
+                    </button>
+                </div>
+            </div>
+        </div>
+        <style>
+            html,
+            body {
+                height: 100%;
+                width: 100%;
+                margin: 0;
+                overflow: hidden;
+                background-color: #2d2d2d;
+            }
+            .editor-layout {
+                display: flex;
+                height: 100%;
+                width: 100%;
+                box-sizing: border-box;
+                padding: 20px;
+            }
+
+            /* Снова делаем .modal-content гибким контейнером-колонкой */
+            .modal-content {
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                overflow: hidden;
+            }
+
+            /* Этот блок для полей ввода сверху, он не растягивается */
+            .form-area {
+                padding: 0 25px;
+                flex-shrink: 0;
+            }
+
+            /* А этот блок со списком действий будет расти и занимать все свободное место */
+            #step-actions-list-container {
+                flex-grow: 1; /* <-- САМОЕ ГЛАВНОЕ ИЗМЕНЕНИЕ */
+                margin-top: 15px;
+                background-color: #2a2a2a;
+                border-radius: 4px;
+                min-height: 120px;
+                padding: 10px;
+                overflow-y: auto; /* Если действий будет много, появится скролл */
+            }
+
+            /* Блок с кнопками всегда внизу */
+            .modal-actions {
+                flex-shrink: 0;
+                padding: 15px 25px;
+                border-top: 1px solid #444;
+            }
+        </style>
+        <script src="./renderer-step-editor.js" type="module"></script>
+    </body>
+</html>
